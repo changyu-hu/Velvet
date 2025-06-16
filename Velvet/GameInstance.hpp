@@ -11,6 +11,7 @@
 
 #include "Component.hpp"
 #include "Common.hpp"
+#include "Actor.hpp"
 
 namespace Velvet
 {
@@ -19,7 +20,6 @@ namespace Velvet
 	class Light;
 	class RenderPipeline;
 	class GUI;
-	class Actor;
 	class Timer;
 
 	class GameInstance
@@ -44,6 +44,7 @@ namespace Velvet
 			for (auto actor : m_actors)
 			{
 				auto component = actor->GetComponents<T>();
+
 				if (component.size() > 0)
 				{
 					result.insert(result.end(), component.begin(), component.end());

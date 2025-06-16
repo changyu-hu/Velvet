@@ -1,7 +1,7 @@
 #pragma once
 
-#include <iostream>
 #include <string>
+#include <memory>
 
 #include "Transform.hpp"
 
@@ -9,8 +9,6 @@
 
 namespace Velvet
 {
-	using namespace std;
-
 	class Actor;
 
 	class Component
@@ -24,11 +22,11 @@ namespace Velvet
 
 		virtual void OnDestroy() {}
 
-		string name = "Component";
+		std::string name = "Component";
 
 		Actor* actor = nullptr;
 
-		shared_ptr<Transform> transform();
+		std::shared_ptr<Transform> transform();
 
 		bool enabled = true;
 	};

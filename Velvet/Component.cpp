@@ -1,10 +1,8 @@
 #include "Component.hpp"
 #include "Actor.hpp"
 
-using namespace std;
-using namespace Velvet;
 
-shared_ptr<Transform> Component::transform()
+std::shared_ptr<Velvet::Transform> Velvet::Component::transform()
 {
 	if (actor)
 	{
@@ -12,6 +10,6 @@ shared_ptr<Transform> Component::transform()
 	}
 	else
 	{
-		return make_shared<Transform>(Transform(nullptr));
+		return std::make_shared<Velvet::Transform>(Velvet::Transform(nullptr));
 	}
 }

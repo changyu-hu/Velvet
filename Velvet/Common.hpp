@@ -87,12 +87,12 @@ public:
 		m_funcs.push_back(func);
 	}
 
-	template <class... TArgs>
-	void Invoke(TArgs... args)
+	template <class... InnerArgs>
+	void Invoke(InnerArgs... args)
 	{
 		for (const auto& func : m_funcs)
 		{
-			func(std::forward<TArgs>(args)...);
+			func(std::forward<InnerArgs>(args)...);
 		}
 	}
 

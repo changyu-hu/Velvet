@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Common.cuh"
+#include <cuda_gl_interop.h>
 
 namespace Velvet
 {
@@ -166,6 +167,11 @@ namespace Velvet
 		// CUDA interop with OpenGL
 		void registerBuffer(GLuint vbo)
 		{
+			if (glfwGetCurrentContext() == NULL)
+			{
+				fprintf(stderr, "Error: No OpenGL context is current on this thread!\n");
+			}
+
 			checkCudaErrors(cudaGraphicsGLRegisterBuffer(&m_cudaVboResource, vbo, cudaGraphicsRegisterFlagsNone));
 
 			// map (example 'gl_cuda_interop_pingpong_st' says map and unmap only needs to be done once)

@@ -4,9 +4,12 @@
 
 #include <glm/glm.hpp>
 
+#include <fmt/ranges.h>
+
+
 #include "VtBuffer.hpp"
 #include "Global.hpp"
-#include "SpatialhashGPU.cuh"
+#include "SpatialHashGPU.cuh"
 
 using namespace std;
 
