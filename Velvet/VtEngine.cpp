@@ -1,8 +1,6 @@
 #include "VtEngine.hpp"
 
 #include <algorithm>
-#include <fmt/core.h>
-#include <fmt/color.h>
 
 #include "Scene.hpp"
 #include "GUI.hpp"
@@ -13,7 +11,7 @@ using namespace Velvet;
 
 void PrintGlfwError(int error, const char* description)
 {
-	fmt::print("Error(Glfw): Code({}), {}\n", error, description);
+	printf("Error(Glfw): Code(%d), %s\n", error, description);
 }
 
 VtEngine::VtEngine()
@@ -31,7 +29,7 @@ VtEngine::VtEngine()
 
 	if (m_window == NULL)
 	{
-		fmt::print("Failed to create GLFW window\n");
+		printf("Failed to create GLFW window\n");
 		glfwTerminate();
 		return;
 	}
@@ -55,7 +53,7 @@ VtEngine::VtEngine()
 	// setup opengl
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		fmt::print("Failed to initialize GLAD\n");
+		printf("Failed to initialize GLAD\n");
 		return;
 	}
 	glViewport(0, 0, Global::Config::screenWidth, Global::Config::screenHeight);
@@ -63,19 +61,17 @@ VtEngine::VtEngine()
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
-	fmt::print(fmt::emphasis::bold | fmt::fg(fmt::color::cyan), "[CUDA] Initializing for OpenGL Interop...\n");
+	printf("[CUDA] Initializing for OpenGL Interop...\n");
     // Use cudaGLSetGLDevice for best practice as it ensures the CUDA device
     // matches the one used by OpenGL. For single-GPU systems, cudaSetDevice(0)
     // often works too, but this is more robust.
     cudaError_t cuda_err = cudaGLSetGLDevice(0); 
     if (cuda_err != cudaSuccess) {
-        fmt::print(fmt::emphasis::bold | fmt::fg(fmt::color::red),
-                   "[CUDA] Error setting GL device: {} ({})\n", 
-                   static_cast<int>(cuda_err), cudaGetErrorString(cuda_err));
+        printf("[CUDA] Error setting GL device: %d (%s)\n", static_cast<int>(cuda_err), cudaGetErrorString(cuda_err));
         // Handle the error appropriately, maybe throw an exception or exit
         return;
     }
-    fmt::print(fmt::emphasis::bold | fmt::fg(fmt::color::lime_green), "[CUDA] CUDA context initialized on device 0.\n");
+    printf("[CUDA] CUDA context initialized on device 0.\n");
 
 	// setup stbi
 	stbi_set_flip_vertically_on_load(true);
@@ -102,10 +98,7 @@ int VtEngine::Run()
 	{
 #pragma warning( push )
 #pragma warning( disable : 4129)
-		fmt::print(
-			"��{0:\-^{2}}��\n"
-			"��{1: ^{2}}��\n"
-			"��{0:\-^{2}}��\n", "", "Hello, Velvet!", 30);
+		printf("Hello, Velvet!");
 #pragma warning( pop ) 
 
 		m_game = make_shared<GameInstance>(m_window, m_gui);

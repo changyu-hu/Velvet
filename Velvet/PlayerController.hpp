@@ -59,7 +59,7 @@ namespace Velvet
 			}
 			else
 			{
-				fmt::print("Error: Camera not found.\n");
+				printf("Error: Camera not found.\n");
 			}
 		}
 

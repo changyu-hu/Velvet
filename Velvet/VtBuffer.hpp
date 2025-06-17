@@ -151,7 +151,6 @@ namespace Velvet
 		{
 			if (m_cudaVboResource != nullptr)
 			{
-				//fmt::print("Info(VtBuffer): Release CUDA Resource ({})\n", (int)m_cudaVboResource);
 				checkCudaErrors(cudaGraphicsUnregisterResource(m_cudaVboResource));
 			}
 			if (m_bufferCPU)

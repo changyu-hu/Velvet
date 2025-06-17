@@ -2,7 +2,6 @@
 
 #include <tuple>
 
-#include <fmt/format.h>
 #include <glm/glm.hpp>
 
 #include <cuda_runtime.h> 
@@ -54,7 +53,6 @@ namespace Velvet
 	{
 		if (n == 0)
 		{
-			//fmt::print("Error(Solver): numParticles is 0\n");
 			numBlocks = 0;
 			numThreads = 0;
 			return;

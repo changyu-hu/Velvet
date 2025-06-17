@@ -6,7 +6,6 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <fmt/core.h>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -67,7 +66,7 @@ namespace Velvet
             }
             else
             {
-				fmt::print("Error(Resource): Texture failed to load at path({})\n", path);
+				printf("Error(Resource): Texture failed to load at path(%s)\n", path.c_str());
                 stbi_image_free(data);
             }
 
@@ -95,7 +94,7 @@ namespace Velvet
 
 				if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
 				{	
-					fmt::print("Error(Resource) Fail to load mesh ({})\n", path);
+					printf("Error(Resource) Fail to load mesh (%s)\n", path.c_str());
 					return shared_ptr<Mesh>();
 				}
 			}
@@ -115,7 +114,7 @@ namespace Velvet
 				}
 				else
 				{
-					fmt::print("Normals not found\n");
+					printf("Normals not found\n");
 					exit(-1);
 				}
 				// texture coordinates
@@ -151,7 +150,7 @@ namespace Velvet
 			if (vertexCode.length() == 0) vertexCode = LoadText(path + ".vert");
 			if (vertexCode.length() == 0)
 			{
-				fmt::print("Error(Resource): material.vertex not found ({})\n", path);
+				printf("Error(Resource): material.vertex not found (%s)\n", path.c_str());
 				exit(-1);
 			}
 
@@ -159,7 +158,7 @@ namespace Velvet
 			if (fragmentCode.length() == 0) fragmentCode = LoadText(path + ".frag");
 			if (fragmentCode.length() == 0)
 			{
-				fmt::print("Error(Resource): material.fragment not found ({})\n", path);
+				printf("Error(Resource): material.fragment not found (%s)\n", path.c_str());
 				exit(-1);
 			}
 
@@ -170,7 +169,7 @@ namespace Velvet
 				if (geometryCode.length() == 0) geometryCode = LoadText(path + ".geom");
 				if (geometryCode.length() == 0)
 				{
-					fmt::print("Error(Resource): material.geometry not found ({})\n", path);
+					printf("Error(Resource): material.geometry not found (%s)\n", path.c_str());
 					exit(-1);
 				}
 			}

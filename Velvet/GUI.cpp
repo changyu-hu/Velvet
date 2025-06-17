@@ -141,7 +141,7 @@ struct SolverTiming
 		if (!hasPrinted && Timer::physicsFrameCount() == printAtFrame)
 		{
 			hasPrinted = true;
-			fmt::print("Info(GUI): Average solver time at frame({}) is: {:.3f} ms\n", printAtFrame, label2avgTime["KernelSum"] / count);
+			printf("Info(GUI): Average solver time at frame(%d) is: %.3f ms\n", printAtFrame, label2avgTime["KernelSum"] / count);
 		}
 
 		if (ImGui::BeginTable("timing", 4))//,  ImGuiTableFlags_BordersOuter))
@@ -234,8 +234,9 @@ struct PerformanceStat
 
 		ImGui::Dummy(ImVec2(0, 5));
 		ImGui::PushItemWidth(-FLT_MIN);
-		auto overlay = fmt::format("Solver: {:.2f} ms ({:.2f} FPS)", solverTime, solverTime > 0 ? (1000.0 / solverTime) : 0);
-		ImGui::PlotLines("##", graphValues, IM_ARRAYSIZE(graphValues), graphIndex, overlay.c_str(),
+		char overlay[100];
+		sprintf(overlay, "Solver: %.2f ms (%.2f FPS)", solverTime, solverTime > 0 ? (1000.0 / solverTime) : 0);
+		ImGui::PlotLines("##", graphValues, IM_ARRAYSIZE(graphValues), graphIndex, overlay,
 			0, graphAverage * 2.0f, ImVec2(0, 80.0f));
 		ImGui::Dummy(ImVec2(0, 5));
 

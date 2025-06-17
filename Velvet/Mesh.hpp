@@ -5,7 +5,6 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <fmt/core.h>
 
 using namespace std;
 
@@ -71,7 +70,7 @@ namespace Velvet
 		{
 			if (m_VAO == 0)
 			{
-				fmt::print("Error(Mesh): Access VAO of 0. Possiblely uninitialized.");
+				printf("Error(Mesh): Access VAO of 0. Possiblely uninitialized.");
 			}
 			return m_VAO;
 		}

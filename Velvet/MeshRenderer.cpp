@@ -34,7 +34,7 @@ namespace Velvet
 		}
 		auto light = Global::lights[0];
 
-		auto prefix = fmt::format("spotLight.");
+		auto prefix = std::string("spotLight.");
 		auto front = Helper::RotateWithDegree(glm::vec3(0, -1, 0), light->transform()->rotation);
 
 		m_material->SetVec3(prefix + "position", light->position());

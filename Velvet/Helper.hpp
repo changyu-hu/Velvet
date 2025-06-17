@@ -1,28 +1,9 @@
 #pragma once
 
-#include <fmt/format.h>
 //#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
 #include <algorithm>
-
-template <>
-struct fmt::formatter<glm::vec3> : fmt::formatter<std::string> {
-	// Add 'const' to the method and take p by const reference
-	auto format(const glm::vec3& p, format_context& ctx) const {
-		return formatter<std::string>::format(
-			fmt::format("[{:.2f}, {:.2f}, {:.2f}]", p.x, p.y, p.z), ctx);
-	}
-};
-
-template <>
-struct fmt::formatter<glm::vec2> : fmt::formatter<std::string> {
-	// Add 'const' to the method and take p by const reference
-	auto format(const glm::vec2& p, format_context& ctx) const {
-		return formatter<std::string>::format(
-			fmt::format("[{:.2f}, {:.2f}]", p.x, p.y), ctx);
-	}
-};
 
 namespace Velvet
 {

@@ -68,27 +68,6 @@ namespace Velvet
 
 			SpawnDebug(game);
 
-			//game->postUpdate.push_back([light, lightComp, game]() {
-			//	//light->transform->position = glm::vec3(sin(glfwGetTime()), 4.0, cos(glfwGetTime()));
-			//	light->transform->rotation = glm::vec3(10 * sin(Timer::elapsedTime()) - 10, 0, 0);
-			//	light->transform->position = glm::vec3(2.5 * sin(Timer::elapsedTime()), 4.0, 2.5 * cos(Timer::elapsedTime()));
-			//	if (Global::input->GetKeyDown(GLFW_KEY_UP))
-			//	{
-			//		fmt::print("Outer: {}\n", lightComp->outerCutoff++);
-			//	}
-			//	if (Global::input->GetKeyDown(GLFW_KEY_DOWN))
-			//	{
-			//		fmt::print("Outer: {}\n", lightComp->outerCutoff--);
-			//	}
-			//	if (Global::input->GetKeyDown(GLFW_KEY_RIGHT))
-			//	{
-			//		fmt::print("Inner: {}\n", lightComp->innerCutoff++);
-			//	}
-			//	if (Global::input->GetKeyDown(GLFW_KEY_LEFT))
-			//	{
-			//		fmt::print("Inner: {}\n", lightComp->innerCutoff--);
-			//	}
-			//	});
 		}
 	
 		void SpawnDebug(GameInstance* game)
@@ -121,7 +100,7 @@ namespace Velvet
 				game->godUpdate.Register([renderer]() {
 					if (Global::input->GetKeyDown(GLFW_KEY_X))
 					{
-						fmt::print("Info(Scene): Visualize shadow texutre. Turn on/off by key X.\n");
+						printf("Info(Scene): Visualize shadow texutre. Turn on/off by key X.\n");
 						renderer->enabled = !renderer->enabled;
 					}
 					});
@@ -257,7 +236,7 @@ namespace Velvet
 			material->doubleSided = true;
 
 			MaterialProperty materialProperty;
-			auto texture = Resource::LoadTexture(fmt::format("fabric{}.jpg", clamp(textureFile, 1, 3)));
+			auto texture = Resource::LoadTexture(std::string("fabric") + std::to_string(clamp(textureFile, 1, 3)) + ".jpg");
 			materialProperty.preRendering = [texture](Material* mat) {
 				mat->SetVec3("material.tint", glm::vec3(0.0f, 0.5f, 1.0f));
 				mat->SetBool("material.useTexture", true);

@@ -41,7 +41,7 @@ namespace Velvet
 
 		void Initialize(shared_ptr<Mesh> mesh, glm::mat4 modelMatrix)
 		{
-			fmt::print("Info(VtClothSolver): Start\n");
+			printf("Info(VtClothSolver): Start\n");
 			m_mesh = mesh;
 
 			m_positions = m_mesh->vertices();
@@ -260,7 +260,7 @@ namespace Velvet
 
 				//if (isnan(lambda) || glm::all(glm::isnan(q1)) || glm::all(glm::isnan(q2)) || glm::all(glm::isnan(q3)) || glm::all(glm::isnan(q4)))
 				//{
-				//	fmt::print("NAN detected\n");
+				//	printf("NAN detected\n");
 				//}
 
 				m_predicted[idx1] += w1 * lambda * q1;
@@ -410,7 +410,7 @@ namespace Velvet
 			{
 				if (glm::any(glm::isnan(positions[i])))
 				{
-					fmt::print("NAN position detected\n");
+					printf("NAN position detected\n");
 					return true;
 				}
 			}

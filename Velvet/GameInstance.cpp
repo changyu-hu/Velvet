@@ -2,7 +2,6 @@
 
 #include <functional>
 
-#include <fmt/core.h>
 
 #include "Helper.hpp"
 #include "Camera.hpp"
@@ -45,16 +44,16 @@ int GameInstance::Run()
 	// Print actors
 	if (0)
 	{
-		fmt::print("Total actors: {}\n", m_actors.size());
+		printf("Total actors: %d\n", m_actors.size());
 		for (auto actor : m_actors)
 		{
-			fmt::print(" + {}\n", actor->name);
+			printf(" + %s\n", actor->name.c_str());
 			for (auto component : actor->components)
 			{
-				fmt::print(" |-- {}\n", component->name);
+				printf(" |-- %s\n", component->name.c_str());
 			}
 		}
-		fmt::print("\n");
+		printf("\n");
 	}
 
 	Initialize();
@@ -129,7 +128,7 @@ void GameInstance::Initialize()
 void GameInstance::MainLoop()
 {
 	double initTime = Timer::EndTimer("GAME_INSTANCE_INIT") * 1000;
-	fmt::print("Info(GameInstance): Initialization success within {:.2f} ms. Enter main loop.\n", initTime);
+	printf("Info(GameInstance): Initialization success within %.2f ms. Enter main loop.\n", initTime);
 	// render loop
 	while (!glfwWindowShouldClose(m_window) && !pendingReset)
 	{

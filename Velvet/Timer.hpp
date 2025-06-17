@@ -6,7 +6,6 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <fmt/printf.h>
 #include <cuda_runtime.h>
 
 //#include "Global.hpp"
@@ -69,7 +68,7 @@ namespace Velvet
 			}
 			else
 			{
-				fmt::print("Warning(Timer): EndTimer with undefined label[{}].\n", label);
+				printf("Warning(Timer): EndTimer with undefined label[%s].\n", label.c_str());
 				return -1;
 			}
 		}
@@ -156,7 +155,6 @@ namespace Velvet
 			s_timer->m_deltaTime = min(current - s_timer->m_lastUpdateTime, 0.2f);
 			s_timer->m_lastUpdateTime = current;
 
-			//fmt::print("dt: {}\n", s_timer->m_deltaTime);
 		}
 
 		static void NextFrame()

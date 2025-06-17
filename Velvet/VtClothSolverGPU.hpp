@@ -1,6 +1,6 @@
 #pragma once
 
-#include <iostream>
+#include <stdio.h>
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
@@ -149,8 +149,8 @@ namespace Velvet
 			m_spatialHash->SetInitialPositions(positions);
 
 			double time = Timer::EndTimer("INIT_SOLVER_GPU") * 1000;
-			fmt::print("Info(ClothSolverGPU): AddCloth done. Took time {:.2f} ms\n", time);
-			fmt::print("Info(ClothSolverGPU): Use recommond max vel = {}\n", Global::simParams.maxSpeed);
+			printf("Info(ClothSolverGPU): AddCloth done. Took time %.2f ms\n", time);
+			printf("Info(ClothSolverGPU): Use recommond max vel = %.3f\n", Global::simParams.maxSpeed);
 
 			return prevNumParticles;
 		}
@@ -244,16 +244,21 @@ namespace Velvet
 					//IMGUI_LEFT_LABEL(ImGui::InputInt, "ParticleID", &particleIndex, 0, m_numParticles-1);
 					IMGUI_LEFT_LABEL(ImGui::SliderInt, "ParticleID1", &particleIndex1, 0, Global::simParams.numParticles - 1);
 					ImGui::Indent(10);
-					ImGui::Text(fmt::format("Position: {}", predicted[particleIndex1]).c_str());
+					char buffer[100];
+					sprintf(buffer, "Position: %f %f %f", predicted[particleIndex1].x, predicted[particleIndex1].y, predicted[particleIndex1].z);
+					ImGui::Text(buffer);
 					auto hash3i = m_spatialHash->HashPosition3i(predicted[particleIndex1]);
 					auto hash = m_spatialHash->HashPosition(predicted[particleIndex1]);
-					ImGui::Text(fmt::format("Hash: {}[{},{},{}]", hash, hash3i.x, hash3i.y, hash3i.z).c_str());
+					sprintf(buffer, "Hash: %d[%d,%d,%d]", hash, hash3i.x, hash3i.y, hash3i.z);
+					ImGui::Text(buffer);
 					auto norm = normals[particleIndex1];
-					ImGui::Text(fmt::format("Normal: [{:.3f},{:.3f},{:.3f}]", norm.x, norm.y, norm.z).c_str());
+					sprintf(buffer, "Normal: [%f,%f,%f]", norm.x, norm.y, norm.z);
+					ImGui::Text(buffer);
 
 					static int neighborRange1 = 0;
 					IMGUI_LEFT_LABEL(ImGui::SliderInt, "NeighborRange1", &neighborRange1, 0, 63);
-					ImGui::Text(fmt::format("NeighborID: {}", m_spatialHash->neighbors[neighborRange1 + particleIndex1 * Global::simParams.maxNumNeighbors]).c_str());
+					sprintf(buffer, "NeighborID: %d", m_spatialHash->neighbors[neighborRange1 + particleIndex1 * Global::simParams.maxNumNeighbors]);
+					ImGui::Text(buffer);
 					ImGui::Indent(-10);
 				}
 
@@ -262,14 +267,18 @@ namespace Velvet
 					//IMGUI_LEFT_LABEL(ImGui::InputInt, "ParticleID", &particleIndex, 0, m_numParticles-1);
 					IMGUI_LEFT_LABEL(ImGui::SliderInt, "ParticleID2", &particleIndex2, 0, Global::simParams.numParticles - 1);
 					ImGui::Indent(10);
-					ImGui::Text(fmt::format("Position: {}", predicted[particleIndex2]).c_str());
+					char buffer[100];
+					sprintf(buffer, "Position: %f %f %f", predicted[particleIndex2].x, predicted[particleIndex2].y, predicted[particleIndex2].z);
+					ImGui::Text(buffer);
 					auto hash3i = m_spatialHash->HashPosition3i(predicted[particleIndex2]);
 					auto hash = m_spatialHash->HashPosition(predicted[particleIndex2]);
-					ImGui::Text(fmt::format("Hash: {}[{},{},{}]", hash, hash3i.x, hash3i.y, hash3i.z).c_str());
+					sprintf(buffer, "Hash: %d[%d,%d,%d]", hash, hash3i.x, hash3i.y, hash3i.z);
+					ImGui::Text(buffer);
 
 					static int neighborRange2 = 0;
 					IMGUI_LEFT_LABEL(ImGui::SliderInt, "NeighborRange2", &neighborRange2, 0, 63);
-					ImGui::Text(fmt::format("NeighborID: {}", m_spatialHash->neighbors[neighborRange2 + particleIndex2 * Global::simParams.maxNumNeighbors]).c_str());
+					sprintf(buffer, "NeighborID: %d", m_spatialHash->neighbors[neighborRange2 + particleIndex2 * Global::simParams.maxNumNeighbors]);
+					ImGui::Text(buffer);
 					ImGui::Indent(-10);
 				}
 				static int cellID = 0;
@@ -277,16 +286,22 @@ namespace Velvet
 				int start = m_spatialHash->cellStart[cellID];
 				int end = m_spatialHash->cellEnd[cellID];
 				ImGui::Indent(10);
-				ImGui::Text(fmt::format("CellStart.HashID: {}", start).c_str());
-				ImGui::Text(fmt::format("CellEnd.HashID: {}", end).c_str());
+				char buffer[100];
+				sprintf(buffer, "CellStart.HashID: %d", start);
+				ImGui::Text(buffer);
+				sprintf(buffer, "CellEnd.HashID: %d", end);
+				ImGui::Text(buffer);
 
 				if (start != 0xffffffff && end > start)
 				{
 					static int particleHash = 0;
 					particleHash = clamp(particleHash, start, end - 1);
 					IMGUI_LEFT_LABEL(ImGui::SliderInt, "HashID", &particleHash, start, end - 1);
-					ImGui::Text(fmt::format("ParticleHash: {}", m_spatialHash->particleHash[particleHash]).c_str());
-					ImGui::Text(fmt::format("ParticleIndex: {}", m_spatialHash->particleIndex[particleHash]).c_str());
+					char buffer[100];
+					sprintf(buffer, "ParticleHash: %d", m_spatialHash->particleHash[particleHash]);
+					ImGui::Text(buffer);
+					sprintf(buffer, "ParticleIndex: %d", m_spatialHash->particleIndex[particleHash]);
+					ImGui::Text(buffer);
 				}
 				});
 		}

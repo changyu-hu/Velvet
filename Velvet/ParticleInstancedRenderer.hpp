@@ -41,7 +41,6 @@ namespace Velvet
 		{
 			if (!m_cloth)
 			{
-				//fmt::print("Warning(ParticleRenderer): No cloth found\n");
 				return;
 			}
 			auto mesh = actor->GetComponent<MeshRenderer>()->mesh();

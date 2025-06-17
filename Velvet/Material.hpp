@@ -9,7 +9,6 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <fmt/core.h>
 
 using namespace std;
 
@@ -119,7 +118,7 @@ namespace Velvet
 			if (err != GL_NO_ERROR)
 			{
 				// possible reason: opengl buffer overflow (e.g. DrawArrays with too much item count)
-				fmt::print("Error(Material::SetFloat): Code #{} in material({})\n", err, this->name);
+				printf("Error(Material::SetFloat): Code #%d in material(%s)\n", static_cast<int>(err), this->name.c_str());
 			}
 			glUniform1f(GetLocation(name), value);
 		}

@@ -4,8 +4,7 @@
 
 #include <glm/glm.hpp>
 
-#include <fmt/ranges.h>
-
+#include <stdio.h>
 
 #include "VtBuffer.hpp"
 #include "Global.hpp"
@@ -147,9 +146,30 @@ namespace Velvet
 
 				if (falsePositive.size() + falseNegative.size() > 0)
 				{
-					fmt::print("id=[{}]\n\t falseNegative[{}]\n\t dist1[{}]\n\t falsePositive[{}]\n\t dist2[{}]\n",
-						i, fmt::join(falseNegative, ", "), fmt::join(dist1, ", "),
-						fmt::join(falsePositive, ", "), fmt::join(dist2, ", "));
+					// fmt::print("id=[{}]\n\t falseNegative[{}]\n\t dist1[{}]\n\t falsePositive[{}]\n\t dist2[{}]\n",
+					// 	i, fmt::join(falseNegative, ", "), fmt::join(dist1, ", "),
+					// 	fmt::join(falsePositive, ", "), fmt::join(dist2, ", "));
+					printf("id=[%d]\n\t ", i);
+					for (int j = 0; j < falseNegative.size(); j++)
+					{
+						printf("%d ", falseNegative[j]);
+					}
+					printf("\n\t ");
+					for (int j = 0; j < dist1.size(); j++)
+					{	
+						printf("%f ", dist1[j]);
+					}
+					printf("\n\t ");
+					for (int j = 0; j < falsePositive.size(); j++)
+					{
+						printf("%d ", falsePositive[j]);
+					}
+					printf("\n\t ");
+					for (int j = 0; j < dist2.size(); j++)
+					{
+						printf("%f ", dist2[j]);
+					}
+					printf("\n");
 				}
 			}
 		}

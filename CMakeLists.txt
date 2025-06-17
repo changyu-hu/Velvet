@@ -32,7 +32,6 @@ find_package(glfw3 CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 find_package(assimp CONFIG REQUIRED)
-find_package(fmt CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED COMPONENTS core opengl3-binding glfw-binding)
 
 # 4. 定义源文件列表
@@ -110,8 +109,12 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     glm::glm
     assimp::assimp
     imgui::imgui
-    fmt::fmt
 )
+
+if(MSVC)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+    target_link_libraries(${PROJECT_NAME} PRIVATE legacy_stdio_definitions.lib)
+endif()
 
 if(TARGET CUDA::cudart)
     target_link_libraries(${PROJECT_NAME} PRIVATE CUDA::cudart)
